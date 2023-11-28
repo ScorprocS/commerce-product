@@ -1,0 +1,1 @@
+insert into product(id,name,price,bar_code) values (1,'Product A',10,156587564),(2,'Product B',200,156587563),(3,'Product C',5,156587464);
