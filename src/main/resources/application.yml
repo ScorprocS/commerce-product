@@ -14,11 +14,11 @@ spring:
 resilience4j:
   circuitbreaker:
     instances:
-      DemoClientgetDemo:
-        minimumNumberOfCalls: 69
+      StockService:
+        minimumNumberOfCalls: 10
   timelimiter:
     instances:
-      DemoClientgetDemo:
+      StockService:
         timeoutDuration: 10s
 eureka:
   client:
