@@ -2,6 +2,7 @@ package lu.sfeir.commerce.product.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,14 @@ public class ProductService {
 		return productDtos;
 	}
 
+	
+	public void updateProductStock(Long id, Long newNumber ) {
+		Optional<Product> optional =productRepository.findById(id);
+		if(optional.isPresent()) {
+			optional.get().setQuantity(newNumber);
+		}
+		productRepository.save(optional.get());
+	}
 	
 	
 

@@ -34,6 +34,9 @@ public class Product {
 	@Column
 	private String barCode;
 	
+	@Column
+	private Long quantity;
+	
 	
 	
 
