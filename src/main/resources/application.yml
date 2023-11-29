@@ -11,6 +11,7 @@ spring:
         enabled: true
         alphanumeric-ids:
           enabled: true
+          
 resilience4j:
   circuitbreaker:
     instances:
@@ -20,6 +21,13 @@ resilience4j:
     instances:
       StockService:
         timeoutDuration: 10s
+  retry:
+    instances:
+      StockService-getStocks:
+        max-attempts: 3
+        waitDuration: 2s
+        retryExceptions:
+          - java.lang.Exception
 eureka:
   client:
     register-with-eureka: true
