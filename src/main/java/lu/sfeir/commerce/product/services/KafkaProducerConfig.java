@@ -14,10 +14,10 @@ import org.springframework.kafka.core.ProducerFactory;
 
 @Configuration
 public class KafkaProducerConfig {
-	@Value(value = "${kafka.bootstrapAddress}")
+	//@Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
-	@Bean
+	/*@Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
@@ -35,5 +35,5 @@ public class KafkaProducerConfig {
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
-    }
+    }*/
 }
