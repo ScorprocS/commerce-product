@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import io.github.resilience4j.retry.annotation.Retry;
 import lu.sfeir.commerce.product.dto.StockDto;
-@FeignClient(value = "stocks", url = "http://localhost:8087/api")
+@FeignClient(name="STOCK-SERVICE", path="/api")
 //@FeignClient(value = "stocks", url = "http://localhost:8087/api", fallback = StockServiceFallback.class)
 public interface StockService {
 	@Retry(name = "StockService-getStocks", fallbackMethod = "retryFallBack")
