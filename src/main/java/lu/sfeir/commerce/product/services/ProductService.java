@@ -22,13 +22,13 @@ public class ProductService {
 		List<StockDto> stocks = stockService.getStocks();
 		List<Product> products = productRepository.findAll();
 		List<ProductDto> productDtos = new ArrayList<>();
-		products.stream().forEach(p -> {
-			productDtos
-					.add(ProductDto.builder().id(p.getId()).name(p.getName()).price(p.getPrice())
-							.numberAvailable(stocks.stream().filter(s -> s.getProductId().equals(p.getId())).findFirst()
-									.orElse(StockDto.builder().numberAvailable(0l).build()).getNumberAvailable())
-							.build());
-		});
+		products.forEach(p ->
+				productDtos
+				.add(ProductDto.builder().id(p.getId()).name(p.getName()).price(p.getPrice())
+						.numberAvailable(stocks.stream().filter(s -> s.getProductId().equals(p.getId())).findFirst()
+								.orElse(StockDto.builder().numberAvailable(0L).build()).getNumberAvailable())
+						.build())
+		);
 
 		return productDtos;
 	}
