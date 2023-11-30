@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lu.sfeir.commerce.product.dto.ProductDto;
 import lu.sfeir.commerce.product.dto.StockDto;
 import lu.sfeir.commerce.product.entity.Product;
-import lu.sfeir.commerce.product.restrepository.ProductRepository;
+import lu.sfeir.commerce.product.repository.ProductRepository;
 
 @RequiredArgsConstructor
 @Service
@@ -50,8 +50,8 @@ public class ProductService {
 		Optional<Product> optional =productRepository.findById(id);
 		if(optional.isPresent()) {
 			optional.get().setQuantity(newNumber);
+			productRepository.save(optional.get());
 		}
-		productRepository.save(optional.get());
 	}
 	
 	
