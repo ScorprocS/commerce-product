@@ -2,6 +2,7 @@ package lu.sfeir.commerce.product.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lu.sfeir.commerce.product.dto.ProductDto;
 import lu.sfeir.commerce.product.dto.StockDto;
 import lu.sfeir.commerce.product.entity.Product;
-import lu.sfeir.commerce.product.restrepository.ProductRepository;
+import lu.sfeir.commerce.product.repository.ProductRepository;
 
 @RequiredArgsConstructor
 @Service
@@ -44,6 +45,14 @@ public class ProductService {
 		return productDtos;
 	}
 
+	
+	public void updateProductStock(Long id, Long newNumber ) {
+		Optional<Product> optional =productRepository.findById(id);
+		if(optional.isPresent()) {
+			optional.get().setQuantity(newNumber);
+			productRepository.save(optional.get());
+		}
+	}
 	
 	
 

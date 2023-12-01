@@ -5,7 +5,29 @@ server:
 spring:
   application:
     name: PRODUCT-SERVICE
-
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+        alphanumeric-ids:
+          enabled: true
+          
+resilience4j:
+  circuitbreaker:
+    instances:
+      StockService:
+        minimumNumberOfCalls: 10
+  timelimiter:
+    instances:
+      StockService:
+        timeoutDuration: 10s
+  retry:
+    instances:
+      StockService-getStocks:
+        max-attempts: 3
+        waitDuration: 2s
+        retryExceptions:
+          - java.lang.Exception
 eureka:
   client:
     register-with-eureka: true
@@ -14,3 +36,5 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+    
+    

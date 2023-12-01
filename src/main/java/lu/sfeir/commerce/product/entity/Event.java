@@ -1,24 +1,26 @@
 package lu.sfeir.commerce.product.entity;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lu.sfeir.commerce.product.events.EventStatus;
 
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="product")
-public class Product {
+public class Event {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,18 +28,16 @@ public class Product {
 	private Long id;
 	
 	@Column
-	private String name;
+	private String type;
+	
+	@Column(length = 1024)
+	private String content;
 	
 	@Column
-	private BigDecimal price;
+	@Enumerated(EnumType.STRING)
+	private EventStatus eventStatus;
 	
 	@Column
-	private String barCode;
-	
-	@Column
-	private Long quantity;
-	
-	
-	
+	private String errorMessage;
 
 }
