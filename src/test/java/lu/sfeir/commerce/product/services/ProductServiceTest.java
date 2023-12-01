@@ -1,24 +1,25 @@
 package lu.sfeir.commerce.product.services;
 
-import jakarta.transaction.Transactional;
-import lu.sfeir.commerce.product.AbstractIntegrationTest;
-import lu.sfeir.commerce.product.dto.ProductDto;
-import lu.sfeir.commerce.product.dto.StockDto;
-import lu.sfeir.commerce.product.entity.Product;
-import lu.sfeir.commerce.product.restrepository.ProductRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.transaction.Transactional;
+import lu.sfeir.commerce.product.AbstractIntegrationTest;
+import lu.sfeir.commerce.product.dto.ProductDto;
+import lu.sfeir.commerce.product.dto.StockDto;
+import lu.sfeir.commerce.product.entity.Product;
+import lu.sfeir.commerce.product.repository.ProductRepository;
 
 class ProductServiceTest extends AbstractIntegrationTest {
 
