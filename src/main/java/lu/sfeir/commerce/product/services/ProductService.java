@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lu.sfeir.commerce.product.dto.ProductDto;
 import lu.sfeir.commerce.product.dto.StockDto;
@@ -23,37 +24,31 @@ public class ProductService {
 		List<StockDto> stocks = stockService.getStocks();
 		List<Product> products = productRepository.findAll();
 		List<ProductDto> productDtos = new ArrayList<>();
-		products.forEach(p ->
-				productDtos
-				.add(ProductDto.builder().id(p.getId()).name(p.getName()).price(p.getPrice())
-						.numberAvailable(stocks.stream().filter(s -> s.getProductId().equals(p.getId())).findFirst()
-								.orElse(StockDto.builder().numberAvailable(0L).build()).getNumberAvailable())
-						.build())
-		);
+		products.forEach(p -> productDtos.add(ProductDto.builder().id(p.getId()).name(p.getName()).price(p.getPrice())
+				.numberAvailable(stocks.stream().filter(s -> s.getProductId().equals(p.getId())).findFirst()
+						.orElse(StockDto.builder().numberAvailable(0L).build()).getNumberAvailable())
+				.build()));
 
 		return productDtos;
 	}
-	
+
 	public List<ProductDto> getAll() {
 		List<Product> products = productRepository.findAll();
 		List<ProductDto> productDtos = new ArrayList<>();
 		products.stream().forEach(p -> {
-			productDtos
-					.add(ProductDto.builder().id(p.getId()).name(p.getName()).price(p.getPrice()).build());
+			productDtos.add(ProductDto.builder().id(p.getId()).name(p.getName()).price(p.getPrice()).build());
 		});
 
 		return productDtos;
 	}
 
-	
-	public void updateProductStock(Long id, Long newNumber ) {
-		Optional<Product> optional =productRepository.findById(id);
-		if(optional.isPresent()) {
-			optional.get().setQuantity(newNumber);
-			productRepository.save(optional.get());
-		}
+	public void updateProductStock(Long id, Long newNumber) {
+		Optional<Product> optional = productRepository.findById(id);
+		Product product = optional
+				.orElseThrow(() -> new EntityNotFoundException("Product with id:" + id + " doesn't exists."));
+		product.setQuantity(newNumber);
+		productRepository.save(product);
+
 	}
-	
-	
 
 }

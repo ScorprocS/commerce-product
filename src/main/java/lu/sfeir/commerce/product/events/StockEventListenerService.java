@@ -19,7 +19,7 @@ public class StockEventListenerService {
 	private final ObjectMapper objectMapper;
 	
 	@KafkaListener(topics = "stocks", groupId = "commerce")
-	public void listenStocksEvents(String content) {
+	public boolean listenStocksEvents(String content) {
 		System.out.println("Received Message in group commerce: " + content);
 		Event event = this.eventService.createEvent(StockUpdated.class.getName(),content);
 		try {
@@ -27,12 +27,14 @@ public class StockEventListenerService {
 			productService.updateProductStock(eventMessage.getProductId(), eventMessage.getNumberAvailable());
 			event.setEventStatus(EventStatus.SUCCES);
 			eventService.updateEvent(event);
+			return true;
 		}catch(Exception e) {
 			System.out.println("Error "+e.getMessage());
 			//save event with error
 			event.setEventStatus(EventStatus.ERROR);
 			event.setErrorMessage(e.getMessage());
 			eventService.updateEvent(event);
+			return false;
 
 		}
 
