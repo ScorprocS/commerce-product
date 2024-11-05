@@ -5,6 +5,9 @@ server:
 spring:
   application:
     name: PRODUCT-SERVICE
+  threads:
+    virtual:
+       enabled: true	
 
 eureka:
   client:
