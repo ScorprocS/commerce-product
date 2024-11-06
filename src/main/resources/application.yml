@@ -11,6 +11,9 @@ spring:
         enabled: true
         alphanumeric-ids:
           enabled: true
+  threads:
+    virtual:
+       enabled: true
           
 resilience4j:
   circuitbreaker:
@@ -28,6 +31,7 @@ resilience4j:
         waitDuration: 2s
         retryExceptions:
           - java.lang.Exception
+
 eureka:
   client:
     register-with-eureka: true
